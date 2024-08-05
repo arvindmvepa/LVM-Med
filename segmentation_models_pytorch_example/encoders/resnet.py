@@ -79,6 +79,7 @@ new_settings = {
         "ssl": "https://dl.fbaipublicfiles.com/semiweaksupervision/model_files/semi_supervised_resnet50-08389792.pth",  # noqa
         "swsl": "https://dl.fbaipublicfiles.com/semiweaksupervision/model_files/semi_weakly_supervised_resnet50-16a12f1b.pth",  # noqa
         "lvm-med-resnet" : "./lvm_med_weights/lvmmed_resnet.torch", # <- set absolute path to your weights here,
+        "youtube": "./lvm_med_weights/youtube_train.pth.tar",
     },
     "resnext50_32x4d": {
         "imagenet": "https://download.pytorch.org/models/resnext50_32x4d-7cdf4587.pth",

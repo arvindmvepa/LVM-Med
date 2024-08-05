@@ -82,7 +82,7 @@ new_settings = {
         "lvm-med-resnet" : "./lvm_med_weights/lvmmed_resnet.torch", # <- set absolute path to your weights here,
         "youtube": "./lvm_med_weights/youtube_train.pth.tar",
         "imagenet_v1": "https://download.pytorch.org/models/resnet50-0676ba61.pth",  # Added pre-trained weights (v1)
-        "imagenet_v2": "https://download.pytorch.org/models/resnet50_v2-0607ba61.pth",  # Added pre-trained weights (v2)
+        "imagenet_v2": "https://download.pytorch.org/models/resnet50-11ad3fa6.pth",  # Added pre-trained weights (v2)
     },
     "resnext50_32x4d": {
         "imagenet": "https://download.pytorch.org/models/resnext50_32x4d-7cdf4587.pth",

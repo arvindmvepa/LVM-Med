@@ -80,6 +80,8 @@ new_settings = {
         "swsl": "https://dl.fbaipublicfiles.com/semiweaksupervision/model_files/semi_weakly_supervised_resnet50-16a12f1b.pth",  # noqa
         "lvm-med-resnet" : "./lvm_med_weights/lvmmed_resnet.torch", # <- set absolute path to your weights here,
         "youtube": "./lvm_med_weights/youtube_train.pth.tar",
+        "imagenet_v1": "https://download.pytorch.org/models/resnet50-0676ba61.pth",  # Added pre-trained weights (v1)
+        "imagenet_v2": "https://download.pytorch.org/models/resnet50_v2-0607ba61.pth",  # Added pre-trained weights (v2)
     },
     "resnext50_32x4d": {
         "imagenet": "https://download.pytorch.org/models/resnext50_32x4d-7cdf4587.pth",
@@ -108,7 +110,6 @@ new_settings = {
         "instagram": "https://download.pytorch.org/models/ig_resnext101_32x48-3e41cc8a.pth",
     },
 }
-
 pretrained_settings = deepcopy(pretrained_settings)
 for model_name, sources in new_settings.items():
     if model_name not in pretrained_settings:

@@ -82,11 +82,14 @@ def get_encoder(name, in_channels=3, depth=5, weights=None, output_stride=32, **
                     list(encoders[name]["pretrained_settings"].keys()),
                 )
             )
-#         encoder.load_state_dict(model_zoo.load_url(settings["url"]))
+        #         encoder.load_state_dict(model_zoo.load_url(settings["url"]))
         try:
-            path = settings['url']
-            import torch
-            weights = torch.load(path, map_location = 'cpu')
+            if 'lvmmed' in settings["url"]:
+                path = settings['url']
+                import torch
+                weights = torch.load(path, map_location = 'cpu')
+            else:
+                encoder.load_state_dict(model_zoo.load_url(settings["url"]))
         except KeyError:
             raise KeyError(
                 "Pretrained weights not exist")

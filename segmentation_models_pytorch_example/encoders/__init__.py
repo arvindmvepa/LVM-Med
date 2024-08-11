@@ -87,7 +87,7 @@ def get_encoder(name, in_channels=3, depth=5, weights=None, output_stride=32, **
                 new_state_dict[k] = v
 
         # Load the modified state_dict into your model
-        encoder.load_state_dict(new_state_dict)
+        encoder.load_state_dict(new_state_dict, strict=False)
     elif weights is not None:
         try:
             settings = encoders[name]["pretrained_settings"][weights]

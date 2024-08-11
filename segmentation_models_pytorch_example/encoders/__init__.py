@@ -1,6 +1,8 @@
 import timm
 import functools
+import os
 import torch.utils.model_zoo as model_zoo
+import torch
 
 from .resnet import resnet_encoders
 from .dpn import dpn_encoders
@@ -71,7 +73,10 @@ def get_encoder(name, in_channels=3, depth=5, weights=None, output_stride=32, **
     params.update(depth=depth)
     encoder = Encoder(**params)
 
-    if weights is not None:
+    if os.path.exists(weights):
+        weights = torch.load(weights, map_location='cpu')
+        encoder.load_state_dict(weights)
+    elif weights is not None:
         try:
             settings = encoders[name]["pretrained_settings"][weights]
         except KeyError:
@@ -86,7 +91,6 @@ def get_encoder(name, in_channels=3, depth=5, weights=None, output_stride=32, **
         try:
             if 'lvmmed' in settings["url"]:
                 path = settings['url']
-                import torch
                 weights = torch.load(path, map_location = 'cpu')
                 encoder.load_state_dict(weights)
             else:

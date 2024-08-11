@@ -73,7 +73,7 @@ def get_encoder(name, in_channels=3, depth=5, weights=None, output_stride=32, **
     params.update(depth=depth)
     encoder = Encoder(**params)
 
-    if os.path.exists(weights):
+    if isinstance(weights, str) and os.path.exists(weights):
         # Load the pre-trained model's state_dict
         state_dict = torch.load(weights, map_location='cpu')
 

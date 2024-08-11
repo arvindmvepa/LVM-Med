@@ -77,13 +77,6 @@ def get_encoder(name, in_channels=3, depth=5, weights=None, output_stride=32, **
         # Load the pre-trained model's state_dict
         state_dict = torch.load(weights, map_location='cpu')
 
-        # Remove the unwanted keys
-        state_dict = {k: v for k, v in state_dict.items() if not k.startswith('projection_head')}
-
-        # Remove the 'conv1.weight' key if there's a size mismatch
-        if 'conv1.weight' in state_dict and state_dict['conv1.weight'].shape != encoder.conv1.weight.shape:
-            del state_dict['conv1.weight']
-
         # Modify the keys to remove the 'encoder.resnet.' prefix
         new_state_dict = {}
         for k, v in state_dict.items():
@@ -92,6 +85,13 @@ def get_encoder(name, in_channels=3, depth=5, weights=None, output_stride=32, **
                 new_state_dict[new_key] = v
             else:
                 new_state_dict[k] = v
+
+        # Remove the unwanted keys
+        new_state_dict = {k: v for k, v in new_state_dict.items() if not k.startswith('projection_head')}
+
+        # Remove the 'conv1.weight' key if there's a size mismatch
+        if 'conv1.weight' in new_state_dict and new_state_dict['conv1.weight'].shape != encoder.conv1.weight.shape:
+            del new_state_dict['conv1.weight']
 
         # Load the modified state_dict into your model
         encoder.load_state_dict(new_state_dict, strict=False)

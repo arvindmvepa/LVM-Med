@@ -74,8 +74,20 @@ def get_encoder(name, in_channels=3, depth=5, weights=None, output_stride=32, **
     encoder = Encoder(**params)
 
     if os.path.exists(weights):
-        weights = torch.load(weights, map_location='cpu')
-        encoder.load_state_dict(weights)
+        # Load the pre-trained model's state_dict
+        state_dict = torch.load(weights, map_location='cpu')
+
+        # Modify the keys to remove the 'encoder.resnet.' prefix
+        new_state_dict = {}
+        for k, v in state_dict.items():
+            if k.startswith('encoder.resnet.'):
+                new_key = k.replace('encoder.resnet.', '')
+                new_state_dict[new_key] = v
+            else:
+                new_state_dict[k] = v
+
+        # Load the modified state_dict into your model
+        encoder.load_state_dict(new_state_dict)
     elif weights is not None:
         try:
             settings = encoders[name]["pretrained_settings"][weights]
